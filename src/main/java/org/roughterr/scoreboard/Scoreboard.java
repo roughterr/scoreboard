@@ -19,7 +19,7 @@ public class Scoreboard {
      */
     public Match startNewMatch(String homeTeam, String awayTeam) {
         Match match = new Match(homeTeam, awayTeam);
-        matches.add(new Match(homeTeam, awayTeam));
+        matches.add(match);
         return match;
     }
 

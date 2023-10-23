@@ -18,7 +18,8 @@ public class ScoreboardTest {
         Match chelseaMatch = scoreboard.startNewMatch("Chelsea", "Aston Villa");
         scoreboard.startNewMatch("Green Bay Packers", "Los Angeles Rams");
         assertEquals(2, scoreboard.getMatches().size());
-        scoreboard.finishMatch(new Match(chelseaMatch.getHomeTeam(), chelseaMatch.getAwayTeam(), chelseaMatch.getStartTime()));
+        Match newChelseaMatchObject = new Match(chelseaMatch.getHomeTeam(), chelseaMatch.getAwayTeam(), chelseaMatch.getStartTime());
+        scoreboard.finishMatch(newChelseaMatchObject);
         assertEquals(1, scoreboard.getMatches().size());
     }
 }
