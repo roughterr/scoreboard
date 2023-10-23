@@ -101,4 +101,15 @@ public class Match {
         result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "homeTeam='" + homeTeam + '\'' +
+                ", awayTeam='" + awayTeam + '\'' +
+                ", startTime=" + startTime +
+                ", homeTeamScore=" + homeTeamScore +
+                ", awayTeamScore=" + awayTeamScore +
+                '}';
+    }
 }

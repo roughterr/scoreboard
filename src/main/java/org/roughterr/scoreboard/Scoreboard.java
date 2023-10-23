@@ -1,10 +1,8 @@
 package org.roughterr.scoreboard;
 
 import java.time.ZonedDateTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A new Live Football World Cup Scoreboard library that shows all the ongoing matches and their scores.
@@ -28,7 +26,7 @@ public class Scoreboard {
     /**
      * Returns all matches.
      *
-     * @return
+     * @return an unmodified set of matches
      */
     public Set<Match> getMatches() {
         return Collections.unmodifiableSet(matches);
@@ -40,6 +38,8 @@ public class Scoreboard {
      * @param match
      */
     public void update(Match match) {
+        // update is remove+add
+        matches.remove(match);
         matches.add(match);
     }
 
@@ -54,8 +54,19 @@ public class Scoreboard {
      * Returns matches in progress ordered by their total score. The matches with the same total score will be returned
      * ordered by the most recently started match in the scoreboard.
      */
-    public void getMatchesByScore() {
-        //TODO
+    public List<Match> getMatchesByScore() {
+        return matches.stream().sorted(new Comparator<Match>() {
+            @Override
+            public int compare(Match m1, Match m2) {
+                Integer m1TotalScore = m1.getHomeTeamScore() + m1.getAwayTeamScore();
+                Integer m2TotalScore = m2.getHomeTeamScore() + m2.getAwayTeamScore();
+                int scoreComp = m2TotalScore.compareTo(m1TotalScore);
+                if (scoreComp != 0) {
+                    return scoreComp;
+                }
+                return m2.getStartTime().compareTo(m1.getStartTime());
+            }
+        }).toList();
     }
 
     /**
