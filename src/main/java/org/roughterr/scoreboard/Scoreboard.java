@@ -1,7 +1,9 @@
 package org.roughterr.scoreboard;
 
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -48,7 +50,23 @@ public class Scoreboard {
         matches.remove(match);
     }
 
+    /**
+     * Returns matches in progress ordered by their total score. The matches with the same total score will be returned
+     * ordered by the most recently started match in the scoreboard.
+     */
     public void getMatchesByScore() {
-       //TODO
+        //TODO
+    }
+
+    /**
+     * Finds a match in the list of ongoing matches.
+     *
+     * @param homeTeam  the name of the home team
+     * @param awayTeam  the name of the away team
+     * @param startTime match start time
+     * @return
+     */
+    public Optional<Match> findMatch(String homeTeam, String awayTeam, ZonedDateTime startTime) {
+        return matches.stream().filter(m -> m.getAwayTeam().equals(awayTeam) && m.getHomeTeam().equals(homeTeam) && m.getStartTime().equals(startTime)).findFirst();
     }
 }
